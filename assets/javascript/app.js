@@ -2,56 +2,25 @@
 
  	// <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDDSfAmgD5d0Z1t0HBBEL5ORhddyXOq_4M&callback=initMap" type="text/javascript"></script>
 
-//GET SEARCH DATA FROM MEETUP.COM
-	function searchMeetup() {
+//GLOBAL VARIABLES
 
-		//Note: radius must not exceed 100
-	  	var searchUrl = "https://api.meetup.com/find/groups?zip=" + searchZip + "&radius=" + searchRadius + "&category=" + searchEventCat + "&order=members&key=514667704c6c522c5d204238772c6520&sign=true";
-	  
+var scheduledEvents = [];
+var todaysEvents = [];
+
+//DROP-DOWN FUNCTIONALITY
+
+
+
+//GET SEARCH DATA FROM EVENTFUL API
+	//http://api.eventful.com/tools/tutorials/search
+	
+	function searchEventful() {
+
+		var searchUrl = "https://api.eventful.com/json/events/search?q=" + searchEventCat + "&l=" + searchZip + "&within=" + searchRadius + "&units=miles&t=today&include=categories&key=2QPvTQjtvQ5DsFpL";
+
 	  	var searchZip = "";
 	  	var searchRadius = 50;
 	  	var searchEventCat = "";
-
-	  	searchZip = $("#").val().trim();
-
-	  	var eventCat = {
-		  	1: "Arts & Culture",
-			2: "Career & Business",
-			3: "Cars & Motorcycles",
-			4: "Community & Environment",
-			5: "Dancing",
-			6: "Education & Learning",
-			7: "--",
-			8: "Fashion & Beauty",
-			9: "Fitness",
-			10: "Food & Drink",
-			11: "Games",
-			12: "LGBT",
-			13: "Movements & Politics",
-			14: "Health & Wellbeing",
-			15: "Hobbies & Crafts",
-			16: "Language & Ethnic Identity",
-			17: "Lifestyle",
-			18: "Book Clubs",
-			19: "--",
-			20: "Movies & Film",
-			21: "Music",
-			22: "New Age & Spirituality",
-			23: "Outdoors & Adventure",
-			24: "Paranormal",
-			25: "Parents & Family",
-			26: "Pets & Animals",
-			27: "Photography",
-			28: "Religion & Beliefs",
-			29: "Sci-Fi & Fantasy",
-			30: "Singles",
-			31: "Socializing",
-			32: "Sports & Recreation",
-			33: "Support",
-			34: "Tech",
-			35: "--",
-			36: "Writing"
-	  	}
 
 	    // Creates AJAX call meetup data
 	    $.ajax({
@@ -124,5 +93,27 @@
 	    });
 	}
 
+//RUN FUNCTIONS TO INITIALIZE MAP AND CAPTURE ZIP CODE
+	// initMap();
+	// handleLocationError();
+	// getZip();
+
+//WHEN EVENT CAT IS SELECTED FROM DROPDOWN, RUN FUNCTIONS AND DISPLAY RESULTS ON MAP
+$(".eventCat").on("click", function() {
+	//get data-att and assign to variable to search api
+	//searchEventful();
+	//if response.next_event exists, write to scheduledEvents
+	//if response.next_event.time = today, write to todaysEvents
+	//for (var i = 0, i < todaysEvents.length, i++) {
+		//$("#").html(response[i].events.event.title);
+		//$("#").html(response[i].events.event.description);
+		//$("#").html(response[i].events.event.start_time);
+		//$("#").html(response[i].events.event.venue_address);
+		//$("#").html(response[i].events.event.city_name);
+		//$("#").html(response[i].events.event.region_name);
+		//$("#").html(response[i].events.event.postal_code);
+
+	// }
+}
 
 });
