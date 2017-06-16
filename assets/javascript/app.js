@@ -6,29 +6,87 @@ $(document).ready(function(){
 
 	var scheduledEvents = [];
 	var searchEventCat = "";
-	var searchRadius = 50;
+	var searchRadius = 20;
 	// var searchZip = "";
-	var searchTime = "";
-	var pos = "";
+	var searchTime = "today";
+	var pos = {};
 	var returnedZip = "";
 
+	var markerArray = [];
+
 //FUNCTIONS
+
+	//ADD MARKERS TO MAP
+		// function addMarker(props) {
+		// 	var marker = new google.maps.Marker({
+		// 		position:props.coords,
+		// 		map:map,
+		// 	});
+		// }
+
+		function addMarker(array) {
+			var marker = new google.maps.Marker({
+				position: array.coords,
+				map:map,
+			});
+
+			console.log(map);
+
+			// Check content
+            if(array.content){
+                var infoWindow =  new google.maps.InfoWindow({
+                    content:array.content
+                });
+                marker.addListener('click', function(){
+                infoWindow.open(map, marker);
+                });
+            }
+		}
 
 	//GET SEARCH DATA FROM EVENTFUL API
 		//http://api.eventful.com/tools/tutorials/search
 		
 		function searchEventful() {
 
-			var searchUrl = "https://api.eventful.com/json/events/search?q=" + searchEventCat + "&l=" + returnedZip + "&within=" + searchRadius + "&units=miles&t=" + searchTime + "&include=categories&key=2QPvTQjtvQ5DsFpL";
+			var searchURL = "https://api.eventful.com/json/events/search?q=" + searchEventCat + "&l=" + returnedZip + "&within=" + searchRadius + "&units=miles&t=" + searchTime + "&include=categories&app_key=2QPvTQjtvQ5DsFpL";
 
 		    // Creates AJAX call meetup data
 		    $.ajax({
 		      	url: searchURL,
+		      	dataType: "jsonp",
 		      	method: "GET"
 		    }).done(function(response) {
 		    	//write response to scheduledEvents array
-		      	scheduledEvents.push(response.events.event);
+		      	scheduledEvents = response.events.event;
+		      	// console.log("response.events.event", response.events.event);
+		      	// console.log("scheduleEvents" , scheduledEvents);
+		      	//run loop to write results to page
+				for (var i = 0; i < scheduledEvents.length; i++) {
+					var thisEvent = scheduledEvents[i];
+
+					markerArray.push({
+						"coords":  {
+							"lat": parseFloat(thisEvent.latitude),
+							"lng": parseFloat(thisEvent.longitude)
+						},
+						"content": thisEvent.title
+					});
+					//$("#").html(response.events.event[i].title);
+					//$("#").html(response.events.event[i].description);
+					//$("#").html(response.events.event[i].start_time);
+					//$("#").html(response.events.event[i].venue_address);
+					//$("#").html(response.events.event[i].city_name);
+					//$("#").html(response.events.event[i].region_name);
+					//$("#").html(response.events.event[i].postal_code);
+				}
+
+				console.log(markerArray);
+
+				for (var i = 0; i < markerArray.length; i++) {
+					addMarker(markerArray[i]);
+				}
 		    });
+
 		}
 
 	//INITIALIZE MAP WITH USER'S LOCATION MARKED
@@ -292,17 +350,20 @@ $(document).ready(function(){
 			infoWindow = new google.maps.InfoWindow;
 
 			// Try HTML5 geolocation.
+			console.log(navigator.geolocation);
 			if (navigator.geolocation) {
 			  navigator.geolocation.getCurrentPosition(function(position) {
-			    var pos = {
+			    pos = {
 			      lat: position.coords.latitude,
 			      lng: position.coords.longitude
 			    };
+			    console.log(pos);
 
 			    infoWindow.setPosition(pos);
 			    infoWindow.setContent('Location found.');
 			    infoWindow.open(map);
 			    map.setCenter(pos);
+			  	getZip();
 			  }, function() {
 			    handleLocationError(true, infoWindow, map.getCenter());
 			  });
@@ -311,7 +372,7 @@ $(document).ready(function(){
 			  // Browser doesn't support Geolocation
 			  handleLocationError(false, infoWindow, map.getCenter());
 			}
-		}
+
 
 		function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 			infoWindow.setPosition(pos);
@@ -321,48 +382,54 @@ $(document).ready(function(){
 			infoWindow.open(map);
 		}
 
+
 	//GET ZIP CODE OF CURRENT LOCATION
 		//https://developers.google.com/maps/documentation/geocoding/start#ReverseGeocoding  >> Address Lookup
 		function getZip() {
-
 			var searchURL = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + pos.lat + "," + pos.lng + "&key=AIzaSyDDSfAmgD5d0Z1t0HBBEL5ORhddyXOq_4M";
 
 			$.ajax({
 		      url: searchURL,
 		      method: "GET"
 		    }).done(function(response) {
-		      returnedZip = response.results.address_components[8].long_name;
+			    for (var i = 0; i < response.results.length; i++) {
+			    	var thisIteration = response.results[i];
+			      for (var j = 0; j < thisIteration.address_components.length; j++) {
+			      	if (thisIteration.address_components[j].types[0] === "postal_code") {
+			      		returnedZip = thisIteration.address_components[j].long_name;
+			      	}
+			      }
+			    }
+			    console.log(returnedZip);
 		    });
-		}
+		};
+	};
 
 
-//RUN FUNCTIONS TO INITIALIZE MAP AND CAPTURE ZIP CODE
+//RUN FUNCTION TO INITIALIZE MAP AND CAPTURE ZIP CODE
 	initMap();
-	handleLocationError();
-	getZip();
+	//addMarker();
 
-//DROP-DOWN FUNCTIONALITY
-	$(".dropdown").addClass("show"); // Opens the dropdown
-	$(".dropdown").removeClass("show"); // Closes it
-
+//WHEN EVENT TIME IS SELECTED FROM DROPDOWN, SET VARIABLE
+	$(".eventWhen").on("click", function() {
+		//get data-name and assign to variable
+			searchTime = $(this).attr("data-name");
+			console.log(searchTime);
+			if (searchEventCat !== "") {
+				searchEventful();
+			}
+	});
 
 //WHEN EVENT CAT IS SELECTED FROM DROPDOWN, RUN FUNCTIONS AND DISPLAY RESULTS ON MAP
 	$(".eventCat").on("click", function() {
-		//get data-anem and assign to variable to search api
+		//get data-name and assign to variable to search api
 			searchEventCat = $(this).attr("data-name");
+			console.log(searchEventCat);
 		//run api data grab function
 			searchEventful();
 			console.log(scheduledEvents);
-		//run loop to write results to page
-			//for (var i = 0; i < scheduledEvents.length; i++) {
-				//$("#").html(response.events.event[i].title);
-				//$("#").html(response.events.event[i].description);
-				//$("#").html(response.events.event[i].start_time);
-				//$("#").html(response.events.event[i].venue_address);
-				//$("#").html(response.events.event[i].city_name);
-				//$("#").html(response.events.event[i].region_name);
-				//$("#").html(response.events.event[i].postal_code);
-			// }
+
 	});
 
 });
+
