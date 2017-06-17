@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+		<title></title>
+		<!-- Bootstrap Core CSS -->
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+		<!-- Optional theme -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+		
+		<link rel="stylesheet" type="text/css" href="style.css">
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDDSfAmgD5d0Z1t0HBBEL5ORhddyXOq_4M"></script>
+    <script src="https://code.jquery.com/jquery.js"></script>    
+		<script type="text/javascript" src="assets/javascript/app.js"></script>
+
+		<style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        width: 100%;
+        height: 490px;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+
+	</head>
+	<body>
+		<nav class="navbar navbar-default navbar-fixed-top">
+		  <div class="container-fluid">
+		    <!-- Brand and toggle get grouped for better mobile display -->
+		    <div class="navbar-header">
+		     
+		      <a class="navbar-brand" href="#">Bevy</a>
+		    </div>
+
+		    <!-- Collect the nav links, forms, and other content for toggling -->
+		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+		      <ul class="nav navbar-nav">
+		        
+		      
+		      <ul class="nav navbar-nav navbar-right">
+		        <li><a href="#">Link</a></li>
+		      </ul>
+		    </div><!-- /.navbar-collapse -->
+		  </div><!-- /.container-fluid -->
+		</nav>
+
+		 <div id="map"></div>
+<!-- 		    <script>
+      function initMap() {
+
+        // Create a new StyledMapType object, passing it an array of styles,
+        // and the name to be displayed on the map type control.
+        var styledMapType = new google.maps.StyledMapType(
+		            [
+  {
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#1d2c4d"
+      }
+    ]
+  },
+  {
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#8ec3b9"
+      }
+    ]
+  },
+  {
+    "elementType": "labels.text.stroke",
+    "stylers": [
+      {
+        "color": "#1a3646"
+      }
+    ]
+  },
+  {
+    "featureType": "administrative.country",
+    "elementType": "geometry.stroke",
+    "stylers": [
+      {
+        "color": "#4b6878"
+      }
+    ]
+  },
+  {
+    "featureType": "administrative.land_parcel",
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#64779e"
+      }
+    ]
+  },
+  {
+    "featureType": "administrative.province",
+    "elementType": "geometry.stroke",
+    "stylers": [
+      {
+        "color": "#4b6878"
+      }
+    ]
+  },
+  {
+    "featureType": "landscape.man_made",
+    "elementType": "geometry.stroke",
+    "stylers": [
+      {
+        "color": "#334e87"
+      }
+    ]
+  },
+  {
+    "featureType": "landscape.natural",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#023e58"
+      }
+    ]
+  },
+  {
+    "featureType": "poi",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#283d6a"
+      }
+    ]
+  },
+  {
+    "featureType": "poi",
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#6f9ba5"
+      }
+    ]
+  },
+  {
+    "featureType": "poi",
+    "elementType": "labels.text.stroke",
+    "stylers": [
+      {
+        "color": "#1d2c4d"
+      }
+    ]
+  },
+  {
+    "featureType": "poi.park",
+    "elementType": "geometry.fill",
+    "stylers": [
+      {
+        "color": "#023e58"
+      }
+    ]
+  },
+  {
+    "featureType": "poi.park",
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#3C7680"
+      }
+    ]
+  },
+  {
+    "featureType": "road",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#304a7d"
+      }
+    ]
+  },
+  {
+    "featureType": "road",
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#98a5be"
+      }
+    ]
+  },
+  {
+    "featureType": "road",
+    "elementType": "labels.text.stroke",
+    "stylers": [
+      {
+        "color": "#1d2c4d"
+      }
+    ]
+  },
+  {
+    "featureType": "road.highway",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#2c6675"
+      }
+    ]
+  },
+  {
+    "featureType": "road.highway",
+    "elementType": "geometry.stroke",
+    "stylers": [
+      {
+        "color": "#255763"
+      }
+    ]
+  },
+  {
+    "featureType": "road.highway",
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#b0d5ce"
+      }
+    ]
+  },
+  {
+    "featureType": "road.highway",
+    "elementType": "labels.text.stroke",
+    "stylers": [
+      {
+        "color": "#023e58"
+      }
+    ]
+  },
+  {
+    "featureType": "transit",
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#98a5be"
+      }
+    ]
+  },
+  {
+    "featureType": "transit",
+    "elementType": "labels.text.stroke",
+    "stylers": [
+      {
+        "color": "#1d2c4d"
+      }
+    ]
+  },
+  {
+    "featureType": "transit.line",
+    "elementType": "geometry.fill",
+    "stylers": [
+      {
+        "color": "#283d6a"
+      }
+    ]
+  },
+  {
+    "featureType": "transit.station",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#3a4762"
+      }
+    ]
+  },
+  {
+    "featureType": "water",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#0e1626"
+      }
+    ]
+  },
+  {
+    "featureType": "water",
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#4e6d70"
+      }
+    ]
+  }
+],
+		            {name: 'Styled Map'});
+
+		        // Create a map object, and include the MapTypeId to add
+		        // to the map type control.
+		        var map = new google.maps.Map(document.getElementById('map'), {
+		          center: {lat: 55.647, lng: 37.581},
+		          zoom: 11,
+		          mapTypeControlOptions: {
+		            mapTypeIds: ['roadmap', 'satellite', 'hybrid', 'terrain',
+		                    'styled_map']
+		          }
+		        });
+
+		        //Associate the styled map with the MapTypeId and set it to display.
+		        map.mapTypes.set('styled_map', styledMapType);
+		        map.setMapTypeId('styled_map');
+
+		      
+		      }
+		    </script> -->
+		    
+
+
+
+		<div class="dropdown">
+		  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+		    Search by Event Type
+		    <span class="caret"></span>
+		  </button>
+		  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+		    <li><class="eventCat" data-name="Concerts">Concerts</li>
+		    <li><class="eventCat" data-name="Conferences">Conferences</li>
+		    <li><class="eventCat" data-name="Comedy">Comedy</li>
+		    <li><class="eventCat" data-name="Education">Education</li>
+		    <li><class="eventCat" data-name="Film">Film</li>
+		    <li><class="eventCat" data-name="Food">Food</li>
+		    <li><class="eventCat" data-name="Fundraisers">Fundraisers</li>
+		    <li><class="eventCat" data-name="Galleries">Galleries</li>
+		    <li><class="eventCat" data-name="Health">Health</li>
+		    <li><class="eventCat" data-name="Holiday">Holiday</li>
+		    <li><class="eventCat" data-name="Literary">Literary</li>
+		    <li><class="eventCat" data-name="Museums">Museums</li>
+		    <li><class="eventCat" data-name="Neighborhood">Neighborhood</li>
+		    <li><class="eventCat" data-name="Networking">Networking</li>
+		    <li><class="eventCat" data-name="On Campus">On Campus</li>
+		    <li><class="eventCat" data-name="Organizations">Organizations</li>
+		    <li><class="eventCat" data-name="Outdoors">Outdoors</li>
+		    <li><class="eventCat" data-name="Pets">Pets</li>
+		    <li><class="eventCat" data-name="Politics">Politics</li>
+		    <li><class="eventCat" data-name="Sales">Sales</li>
+		    <li><class="eventCat" data-name="Science">Science</li>
+		    <li><class="eventCat" data-name="Spirituality">Spirituality</li>
+		    <li><class="eventCat" data-name="Technology">Technology</li>
+		    <li><class="eventCat" data-name="Other">Other</li>
+		  </ul>
+		</div>
+
+    <div class="dropdown">
+      <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Search by When<span class="caret"></span>
+      </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+          <li><class="eventWhen" data-name="today">Today</li>
+          <li><class="eventWhen" data-name="tomorrow">Tomorrow</li>
+          <li><class="eventWhen" data-name="this+week">This Week</li>
+          <li><class="eventWhen" data-name="this+weekend">This Weekend</li>
+          <li><class="eventWhen" data-name="this+month">This Month</li>
+<!--           <li><class="eventWhen" data-attribute="custom">Custom</li> -->
+        </ul>
+    </div>
+		
+		<div class="row">
+	<div class="col-sm-6 col-md-3">
+	    	<div class="thumbnail" style="background:url(Sports.png) no-repeat">
+		  		<div class="overlay">
+		    		<img src="Sports&Recreation.png" alt="">
+		    	</div>
+	      		<div class="caption">
+	        		<h3>Thumbnail label</h3>
+	        		<p>...</p>
+	      		</div>
+	    	</div>
+	  	</div>
+		<div class="col-sm-6 col-md-3">
+	    	<div class="thumbnail" style="background:url(Arts&CultureCover.png) no-repeat">
+		  		<div class="overlay">
+		    		<img src="Arts&Culture.png" alt="">
+		    	</div>
+	      		<div class="caption">
+	        		<h3>Thumbnail label</h3>
+	        		<p>...</p>
+	      		</div>
+	    	</div>
+	  	</div>
+		<div class="col-sm-6 col-md-3">
+	    	<div class="thumbnail" style="background:url(cars&motorcyclecover.png) no-repeat">
+		  		<div class="overlay">
+		    		<img src="cars&motorcycle.png" alt="">
+		    	</div>
+	      		<div class="caption">
+	        		<h3>Thumbnail label</h3>
+	        		<p>...</p>
+	      		</div>
+	    	</div>
+	  	</div>
+		<div class="col-sm-6 col-md-3">
+	    	<div class="thumbnail" style="background:url(DancingCover.png) no-repeat">
+		  		<div class="overlay">
+		    		<img src="Dancing.png" alt="">
+		    	</div>
+	      		<div class="caption">
+	        		<h3>Thumbnail label</h3>
+	        		<p>...</p>
+	      		</div>
+	    	</div>
+	  	</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-6 col-md-3">
+	    	<div class="thumbnail" style="background:url(ELCover.png) no-repeat">
+		  		<div class="overlay">
+		    		<img src="education&learning.png" alt="">
+		    	</div>
+	      		<div class="caption">
+	        		<h3>Thumbnail label</h3>
+	        		<p>...</p>
+	      		</div>
+	    	</div>
+	  	</div>
+		<div class="col-sm-6 col-md-3">
+	    	<div class="thumbnail" style="background:url(FBCover.png) no-repeat">
+		  		<div class="overlay">
+		    		<img src="fashion&beautys.png" alt="">
+		    	</div>
+	      		<div class="caption">
+	        		<h3>Thumbnail label</h3>
+	        		<p>...</p>
+	      		</div>
+	    	</div>
+	  	</div>
+		<div class="col-sm-6 col-md-3">
+	    	<div class="thumbnail" style="background:url(fitnesscover.png) no-repeat">
+		  		<div class="overlay">
+		    		<img src="fitness.png" alt="">
+		    	</div>
+	      		<div class="caption">
+	        		<h3>Thumbnail label</h3>
+	        		<p>...</p>
+	      		</div>
+	    	</div>
+	  	</div>
+		<div class="col-sm-6 col-md-3">
+	    	<div class="thumbnail" style="background:url(Community-&-Environment.png) no-repeat">
+		  		<div class="overlay">
+		    		<img src="community&environmentword.png" alt="">
+		    	</div>
+	      		<div class="caption">
+	        		<h3>Thumbnail label</h3>
+	        		<p>...</p>
+	      		</div>
+	    	</div>
+	  	</div>
+	</div>
+	
+	</div>
+	
+
+
+	 <footer>
+        <div class="container">
+            <p>&copy; 2017 Bevy. All Rights Reserved.</p>
+           
+            </ul>
+        </div>
+    </footer>
+	</body>
+</html>
