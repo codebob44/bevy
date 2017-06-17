@@ -14,7 +14,6 @@ $(document).ready(function(){
 
 	var markerArray = [];
 
-	
 
 //FUNCTIONS
 
@@ -433,4 +432,7 @@ $(document).ready(function(){
 
 	});
 
+
 });
+
+
