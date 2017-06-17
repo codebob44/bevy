@@ -40,17 +40,88 @@
 
 		    <!-- Collect the nav links, forms, and other content for toggling -->
 		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-		      <!-- <ul class="nav navbar-nav"> -->
-		        
-		      
-		      <ul class="nav navbar-nav navbar-right">
-            <li><a href="">About</a></li>
+		      <ul class="nav navbar-nav">
+            <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Search by Event Type<span class="caret"></span></a>
+            <ul id="search-dp" class="dropdown-menu" aria-labelledby="dropdownMenu1">
+              <li class="eventCat" data-name="Concerts">Concerts</li>
+              <li class="eventCat" data-name="Conferences">Conferences</li>
+              <li class="eventCat" data-name="Comedy">Comedy</li>
+              <li class="eventCat" data-name="Education">Education</li>
+              <li class="eventCat" data-name="Film">Film</li>
+              <li class="eventCat" data-name="Food">Food</li>
+              <li class="eventCat" data-name="Fundraisers">Fundraisers</li>
+              <li class="eventCat" data-name="Galleries">Galleries</li>
+              <li class="eventCat" data-name="Health">Health</li>
+              <li class="eventCat" data-name="Holiday">Holiday</li>
+              <li class="eventCat" data-name="Literary">Literary</li>
+              <li class="eventCat" data-name="Museums">Museums</li>
+              <li class="eventCat" data-name="Neighborhood">Neighborhood</li>
+              <li class="eventCat" data-name="Networking">Networking</li>
+              <li class="eventCat" data-name="On Campus">On Campus</li>
+              <li class="eventCat" data-name="Organizations">Organizations</li>
+              <li class="eventCat" data-name="Outdoors">Outdoors</li>
+              <li class="eventCat" data-name="Pets">Pets</li>
+              <li class="eventCat" data-name="Politics">Politics</li>
+              <li class="eventCat" data-name="Sales">Sales</li>
+              <li class="eventCat" data-name="Science">Science</li>
+              <li class="eventCat" data-name="Spirituality">Spirituality</li>
+              <li class="eventCat" data-name="Technology">Technology</li>
+              <li class="eventCat" data-name="Other">Other</li>
+            </ul>
+            </li>
+            <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Search by When<span class="caret"></span></a>
+            <ul id="when-dp" class="dropdown-menu" aria-labelledby="dropdownMenu2">
+              <li class="eventWhen" data-name="today">Today</li>
+              <li class="eventWhen" data-name="tomorrow">Tomorrow</li>
+              <li class="eventWhen" data-name="this+week">This Week</li>
+              <li class="eventWhen" data-name="this+weekend">This Weekend</li>
+              <li class="eventWhen" data-name="this+month">This Month</li>
+<!--           <li><class="eventWhen" data-attribute="custom">Custom</li> -->
+            </ul>
+            </li>
+            </ul>
+          <ul class="nav navbar-nav navbar-right">
             <li><a href="#">Sign In</a></li>
-            <li><a href="">Log In</a></li>
+            <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Log In</b><span class="caret"></span></a>
+            <ul id="login-dp" class="dropdown-menu">
+              <li>
+                <div class="row">
+                  <div class="col-md-12">
+                    <form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav">
+                      <div class="form-group">
+                        <label class="sr-only" for="InputEmail">Email address:</label>
+                        <input type="email" class="form-control" id="InputEmail" placeholder="Email address" required>
+                      </div>
+                      <div class="form-group">
+                        <label class="sr-only" for="InputPassword">Password</label>
+                        <input type="password" class="form-control" id="InputPassword" placeholder="Password" required>
+                      <div class="help-block text-right"><a href="">Forget the password ?</a></div>
+                      </div>
+                      <div class="form-group">
+                        <a href="#"><button type="submit" class="btn btn-primary btn-block">Log in</button></a>
+                      </div>
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox"> keep me logged-in
+                        </label>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="bottom text-center">
+                    <input class="btn btn-primary" type="submit" name="CreateLogIn" value="Create Log In">
+                  </div>
+                </div>
+              </li>
+            </ul>
+            </li>
           </ul>
-		    </div><!-- /.navbar-collapse -->
-		  </div><!-- /.container-fluid -->
-		</nav>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
 
 		 <div id="map"></div>
 
@@ -58,7 +129,7 @@
 
 
 
-		<div class="dropdown">
+<!-- 		<div class="dropdown">
 		  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 		    Search by Event Type
 		    <span class="caret"></span>
@@ -89,9 +160,9 @@
 		    <li class="eventCat" data-name="Technology">Technology</li>
 		    <li class="eventCat" data-name="Other">Other</li>
 		  </ul>
-		</div>
+		</div> -->
 
-    <div class="dropdown">
+<!--     <div class="dropdown">
       <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Search by When<span class="caret"></span>
       </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
@@ -100,112 +171,9 @@
           <li class="eventWhen" data-name="this+week">This Week</li>
           <li class="eventWhen" data-name="this+weekend">This Weekend</li>
           <li class="eventWhen" data-name="this+month">This Month</li>
-<!--           <li><class="eventWhen" data-attribute="custom">Custom</li> -->
+          <li><class="eventWhen" data-attribute="custom">Custom</li> 
         </ul>
-    </div>
-		
-		<!-- test -->
-    <div class="row">
-      <div class="col-sm-6 col-md-3">
-          <div id="thumbnails"></div>
-      </div>
-    </div>
-
-    <!-- Normal -->
-    <div class="row">
-      <div class="col-sm-6 col-md-3">
-        <div class="thumbnail">
-            <img src="assets/images/Sports&Recreation.png" alt="">
-            <div class="caption">
-              <h3>Thumbnail label</h3>
-              <p>...</p>
-              <p><a href="#" class="btn btn-primary" role="button">View More</a></p>
-            </div>
-        </div>
-      </div>
-      <div class="col-sm-6 col-md-3 ">
-        <div class="thumbnail">
-            <img src="assets/images/Arts&CultureCover.png" alt="">
-            <div class="caption">
-              <h3>Thumbnail label</h3>
-              <p>...</p>
-              <p><a href="#" class="btn btn-primary" role="button">View More</a></p>
-            </div>
-        </div>
-      </div>
-      <div class="col-sm-6 col-md-3">
-        <div class="thumbnail">
-            <img src="assets/images/cars&motorcycle.png" alt="">
-            <div class="caption">
-              <h3>Thumbnail label</h3>
-              <p>...</p>
-              <p><a href="#" class="btn btn-primary" role="button">View More</a></p>
-            </div>
-        </div>
-      </div>
-    <div class="col-sm-6 col-md-3">
-        <div class="thumbnail">
-            <img src="assets/images/dancingcover.png" alt="">
-            <div class="caption">
-              <h3>Thumbnail label</h3>
-              <p>...</p>
-              <p><a href="#" class="btn btn-primary" role="button">View More</a></p>
-            </div>
-        </div>
-      </div>
-  </div>
-  <div class="row">
-    <div class="col-sm-6 col-md-3">
-        <div class="thumbnail">
-            <img src="assets/images/ELcover.png" alt="">
-            <div class="caption">
-              <h3>Thumbnail label</h3>
-              <p>...</p>
-              <p><a href="#" class="btn btn-primary" role="button">View More</a></p>
-            </div>
-        </div>
-      </div>
-    <div class="col-sm-6 col-md-3">
-        <div class="thumbnail">
-            <img src="assets/images/fashion&beautys.png" alt="">
-            <div class="caption">
-              <h3>Thumbnail label</h3>
-              <p>...</p>
-              <p><a href="#" class="btn btn-primary" role="button">View More</a></p>
-            </div>
-        </div>
-      </div>
-    <div class="col-sm-6 col-md-3">
-        <div class="thumbnail">
-            <img src="assets/images/fitnesscover.png" alt="">
-            <div class="caption">
-              <h3>Thumbnail label</h3>
-              <p>...</p>
-              <p><a href="#" class="btn btn-primary" role="button">View More</a></p>
-            </div>
-        </div>
-      </div>
-    <div class="col-sm-6 col-md-3">
-        <div class="thumbnail">
-            <img src="assets/images/community&environmentword.png" alt="">
-            <div class="caption">
-              <h3>Thumbnail label</h3>
-              <p>...</p>
-              <p><a href="#" class="btn btn-primary" role="button">View More</a></p>
-            </div>
-        </div>
-      </div>
-  </div>
-  <div class="row">
-    <div class="container">
-      <div class="col-xs-6 col-md-8">
-        <div id="buttons"></div>
-        
-    </div>
-  </div>
-  </div> 
-	
-
+    </div> -->
 
 	 <footer>
         <div class="container">
