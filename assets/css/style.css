@@ -2,7 +2,7 @@
   * element that contains the map. */
 #map {
   width: 100%;
-  height: 490px;
+  height: 100%;
 }
 
 
@@ -25,27 +25,38 @@ html, body {
   background-color: #50147F;
   border-color: #50147F;
   background-image: linear-gradient(to bottom,#50147F 0,#47007F 100%);
-  margin: 15px 15px;
 }
-
-.thumbnail {
-    padding: 0px;
-    border: 1px solid transparent;
-    margin-top: 15px;
-    margin-left: 20px;
-}
-
-.thumbnail:hover .overlay { 
-      opacity:1;
-  }
-  .overlay {
-      opacity:0;
-  }
 
 footer {
   color: #fff;
   background-color: #50147F;
   padding: 60px 0 40px;
+}
+
+/*Log in*/
+#login-dp, #search-dp, #when-dp{
+    min-width: 250px;
+    padding: 14px 14px 0;
+    overflow:hidden;
+    background-color:rgba(255,255,255,.8);
+}
+#login-dp .help-block{
+    font-size:12px    
+}
+#login-dp .bottom{
+    background-color:rgba(255,255,255,.8);
+    border-top:1px solid #ddd;
+    clear:both;
+    padding:14px;
+}
+#login-dp .social-buttons{
+    margin:12px 0    
+}
+#login-dp .social-buttons a{
+    width: 49%;
+}
+#login-dp .form-group {
+    margin-bottom: 10px;
 }
 
 @media screen and (min-width: 480px) {
