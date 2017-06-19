@@ -1,14 +1,12 @@
 $(document).ready(function(){
 
-	// <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDDSfAmgD5d0Z1t0HBBEL5ORhddyXOq_4M&callback=initMap" type="text/javascript"></script>
-
 //GLOBAL VARIABLES
 
 	var scheduledEvents = [];
 	var searchEventCat = "";
 	var searchRadius = 20;
 	// var searchZip = "";
-	var searchTime = "today";
+	var searchTime = "this+week";
 	var pos = {};
 	var returnedZip = "";
 
@@ -17,26 +15,6 @@ $(document).ready(function(){
 
 //FUNCTIONS
 
-	//ADD MARKERS TO MAP
-		function addMarker(array) {
-			var marker = new google.maps.Marker({
-				position: array.coords,
-				map:map,
-			});
-
-			console.log(map);
-
-			// Check content
-            // if(array.content){
-            //     var infoWindow =  new google.maps.InfoWindow({
-            //         content:array.content
-            //     });
-            //     marker.addListener('mouseover', function(){
-            //     infoWindow.open(map, marker);
-            //     });
-            // }
-		}
-
 	//GET SEARCH DATA FROM EVENTFUL API
 		//http://api.eventful.com/tools/tutorials/search
 		
@@ -44,8 +22,7 @@ $(document).ready(function(){
 
 			var searchURL = "https://api.eventful.com/json/events/search?q=" + searchEventCat + "&l=" + returnedZip + "&within=" + searchRadius + "&units=miles&t=" + searchTime + "&include=categories&app_key=2QPvTQjtvQ5DsFpL";
 
-			//reset markers
-			
+			//function to place markers
       		function setMapOnAll(map) {
         		for (var i = 0; i < markerArray.length; i++) {
         			var thisMarker = markerArray[i]; 
@@ -56,19 +33,16 @@ $(document).ready(function(){
   					thisMarker.marker.infowindow = infowindow;
   					thisMarker.marker.addListener('click', function() {
     					this.infowindow.open(map, this);
-    					console.log(this);
+    					// console.log(this);
   					});
         		}
       		}
+
+      		//function to clear markers
       		function clearMarkers() {
         		setMapOnAll(null);
         		markerArray = [];
       		}
-
-      		var marker = new google.maps.Marker({
-				position:pos,
-				map:map
-				});
 
 		    // Creates AJAX call meetup data
 		    $.ajax({
@@ -76,10 +50,11 @@ $(document).ready(function(){
 		      	dataType: "jsonp",
 		      	method: "GET"
 		    }).done(function(response) {
-		    	//write response to scheduledEvents array
+		    	//clear markers from previous search
 		    	clearMarkers();
+		    	//write response to scheduledEvents array
 		      	scheduledEvents = response.events.event;
-		      	//run loop to write results to page
+		      	//run loop to push select scheduledEvents info into markerArray
 				for (var i = 0; i < scheduledEvents.length; i++) {
 					var thisEvent = scheduledEvents[i];
 
@@ -89,29 +64,13 @@ $(document).ready(function(){
 								lat: parseFloat(thisEvent.latitude),
 			      				lng: parseFloat(thisEvent.longitude)
 							}
-							// map: map
-							// title: "<p>" + thisEvent.title + "</p><p>" + moment("YYYY-MM-DD HH:mm:ss", thisEvent.start_time).format("HH:mm") + "</p><p>" + thisEvent.venue_address + "</p><p>" + thisEvent.city_name + " " + thisEvent.region_name + " " + thisEvent.postal_code + "</p>"
-							}),
-						contentString: "<p>" + thisEvent.title + "</p><p>" + moment("YYYY-MM-DD HH:mm:ss", thisEvent.start_time).format("HH:mm") + "</p><p>" + thisEvent.venue_address + "</p><p>" + thisEvent.city_name + " " + thisEvent.region_name + " " + thisEvent.postal_code + "</p>"
+						}),
+						contentString: "<p>" + thisEvent.title + "</p><p>" + thisEvent.categories.category[0].name + ", " + thisEvent.start_time + "</p><p>" + thisEvent.venue_name + "</p><p>" + thisEvent.venue_address + "</p><p>" + thisEvent.city_name + " " + thisEvent.region_name + " " + thisEvent.postal_code + "</p><p><a href='" + thisEvent.url + "' target='_blank'>More Info</a></p>"
 					});
-
-					// markerArray.push({
-					// 	"coords":  {
-					// 		"lat": parseFloat(thisEvent.latitude),
-					// 		"lng": parseFloat(thisEvent.longitude)
-					// 	},
-					// 	"content": "<p>" + thisEvent.title + "</p><p>" + moment("YYYY-MM-DD HH:mm:ss", thisEvent.start_time).format("HH:mm") + "</p><p>" + thisEvent.venue_address + "</p><p>" + thisEvent.city_name + " " + thisEvent.region_name + " " + thisEvent.postal_code + "</p>"
-					// });
-					console.log(moment("YYYY-MM-DD HH:mm:ss", thisEvent.start_time).format("HH:mm"));
+					// console.log(moment("YYYY-MM-DD HH:mm:ss", thisEvent.start_time).format("HH:mm"));
 				}
-
-				// console.log(markerArray);
+				//set markers for this search
 				setMapOnAll(map);
-
-
-				// for (var i = 0; i < markerArray.length; i++) {
-				// 	addMarker(markerArray[i]);
-				// }
 		    });
 
 		}
@@ -151,9 +110,6 @@ $(document).ready(function(){
 
 				marker.setIcon("assets/images/blue_pin.png");
 
-			    // infoWindow.setPosition(pos);
-			    // infoWindow.setContent('Location found.');
-			    // infoWindow.open(map);
 			    map.setCenter(pos);
 			  	getZip();
 			  }, function() {
@@ -161,10 +117,9 @@ $(document).ready(function(){
 			  });
 			} 
 			else {
-			  // Browser doesn't support Geolocation
+			  // if Browser doesn't support Geolocation
 			  handleLocationError(false, infoWindow, map.getCenter());
 			}
-
 
 		function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 			infoWindow.setPosition(pos);
@@ -193,6 +148,7 @@ $(document).ready(function(){
 			      }
 			    }
 			    console.log(returnedZip);
+			    searchEventful();
 		    });
 		};
 	};
@@ -218,11 +174,19 @@ $(document).ready(function(){
 			console.log(searchEventCat);
 		//run api data grab function
 			searchEventful();
-			console.log(scheduledEvents);
-
 	});
 
+//WHEN DROPDOWN IS CLICKED
+	//https://stackoverflow.com/questions/17061812/display-selected-item-in-bootstrap-button-dropdown-title-place-holder-text
+	$(".eventCat").click(function(){
+  		var selText = $(this).text();
+  		$(this).parents('.dropdown').find('.dropdown-toggle').html(selText+'<span class="caret"></span>');
+	});
+
+	$(".eventWhen").click(function(){
+  		var selText = $(this).text();
+  		$(this).parents('.dropdown').find('.dropdown-toggle').html(selText+'<span class="caret"></span>');
+	});
 
 });
-
 
