@@ -17,19 +17,22 @@ $(document).ready(function(){
     var name = "";
     var email = "";
     var zip = "";
+
+    function resetForm() {
+    	$("#InputName").val("");      
+      	$("#InputEmail").val("");      
+      	$("#InputZipcode").val("");
+    };
     
     // Capture Button Click
     $("#signIn").on("click", function(event) {
-      event.preventDefault();
-      console.log(event);
-      
+      event.preventDefault();            
       // Grabbed values from text boxes
-      name = $("#InputName").val().trim();
-      console.log(name);
-      email = $("#InputEmail").val().trim();
-      console.log(email);
+      name = $("#InputName").val().trim();      
+      email = $("#InputEmail").val().trim();      
       zip = $("#InputZipcode").val().trim();
-      console.log(zip);
+      resetForm();
+      
      
       // Code for handling the push
       database.ref().push({
