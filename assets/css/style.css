@@ -11,14 +11,14 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
+  font-family: 'Roboto', sans-serif;
 }
 
 .container-fluid {
-  background-color: #50147F;
+  background-color: #9000FD;
 }
 
 .container {
-    /*padding: 10px 0px 10px 15px;*/
     width: 100%;
     display: flex;
     justify-content: center;
@@ -33,9 +33,18 @@ html, body {
   margin: 7px 0 0;
 }
 
-/*.navbar-default .navbar-nav>li>a:hover {
-    color: white;
-}*/
+.navbar-bevy {
+  background-color: #E3BCFF;
+  color: #000;
+}
+
+a {
+  color: #fff;
+}
+
+.navbar-toggle .icon-bar {
+  background-color: white;
+}
 
 /* Highlight Event and When */
 .eventCat:hover, .eventWhen:hover {
@@ -44,33 +53,53 @@ html, body {
 
 /* Button Group*/
 .btn-group {
-  margin-left: 10px;
+  margin-left: 20px;
+  color: #9000FD;
+  background-color: #fff;
+  border-color: #fff;
 }
 
-/* Button Primary */
+/* Button */
 .btn-primary {
-  color: #fff;
-    color: #50147F;
+    color: #9000FD;
     background-color: #fff;
     border-color: #fff;
     background-image: linear-gradient(to bottom,#fff 0,#fff 100%);
 }
 
-.btn-primary:active, .btn-primary:hover, .btn-primary:focus {
-    color: #50147F;
+.btn-signin {
+  background-color: #9000FD;
+  color: #fff;
+  border-color: #9000FD;
+}
+
+.btn-primary.active.focus, .btn-primary.active:focus, .btn-primary.active:hover, .btn-primary:active.focus, .btn-primary:active:focus, .btn-primary:active:hover, .open>.dropdown-toggle.btn-primary.focus, .open>.dropdown-toggle.btn-primary:focus, .open>.dropdown-toggle.btn-primary:hover {
+    color: #9000FD;
     background-color: #fff;
     border-color: #fff;
 }
 
-.btn-primary:active:focus, .btn-primary:active:hover, .open>.dropdown-toggle.btn-primary, .open>.dropdown-toggle.btn-primary:hover, .open>.dropdown-toggle.btn-primary:focus {
-    color: #50147F;
+.btn-primary:active {
+  color: #9000FD;
+  background-color: #fff;
+  border-color: #fff;
+}
+
+.btn-primary:focus {
     background-color: #fff;
-    border-color: #fff;
+    background-position: 0 -15px;
+    color: #9000DF;
+}
+
+.btn-primary:hover {
+  color: #9000FD;
+  background-color: #fff;
+  border-color: #fff;
 }
 
 footer {
   color: #fff;
-  background-color: #50147F;
+  background-color: #9000FD;
 }
 
 /*Inside Box*/
@@ -111,4 +140,7 @@ footer {
 }
 
 @media screen and (min-width: 480px) {
+  .navbar-form {
+    margin-left: 4px;
+  }
 }

@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		
-		<title></title>
+		<title>Bevy</title>
 		<!-- Bootstrap Core CSS -->
 		<!-- Latest compiled and minified CSS -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -25,7 +25,7 @@
 
 	</head>
 	<body>
-		<nav class="navbar navbar-default navbar-fixed-top">
+		<nav class="navbar navbar-bevy navbar-fixed-top">
 		  <div class="container-fluid">
 		    <!-- Brand and toggle get grouped for better mobile display -->
 		    <div class="navbar-header">
@@ -37,8 +37,11 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
           </button>
-		     
-		      <a class="navbar-brand" href="#">Bevy</a>
+          <a class="brand" href="#">
+            <!-- UNCOMMENT THE CSS VALUES TO TEST OTHER DIMENTIONS -->
+            <!-- <img src="http://placehold.it/150x80&text=Logo" alt=""> -->
+            <img src="assets/images/Bevy_logo_top_nav.png" alt="Bevy logo">
+            </a>
 		    </div>
 
 		    <!-- Collect the nav links, forms, and other content for toggling -->
@@ -99,36 +102,30 @@
             </ul>
           <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Log In</b><span class="caret"></span></a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Sign Up</b><span class="caret"></span></a>
             <ul id="login-dp" class="dropdown-menu">
               <li>
                 <div class="row">
                   <div class="col-md-12">
                     <form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav">
+                    <h4>Stay up to date with our newsletter</h4>
                       <div class="form-group">
-                        <label class="sr-only" for="InputEmail">Email address</label>
-                        <input type="email" class="form-control" id="InputEmail" placeholder="Email address" required="">
+
+                        <label class="sr-only" for="InputName">Name</label>
+                        <input type="text" class="form-control" id="InputName" placeholder="Name">
                       </div>
                       <div class="form-group">
-                        <label class="sr-only" for="InputPassword">Password</label>
-                        <input type="password" class="form-control" id="InputPassword" placeholder="Password" required="">
-                      <div class="help-block text-right"><a href="">Forget the password ?</a></div>
+                        <label class="sr-only" for="InputEmail">Email Address</label>
+                        <input type="email" class="form-control" id="InputEmail" placeholder="Email Address">
                       </div>
                       <div class="form-group">
-                        <a href="#"><button type="submit" class="btn btn-primary btn-block">Log in</button></a>
+                        <label class="sr-only" for="InputZipcode">Zip code</label>
+                        <input type="text" class="form-control" id="InputZipcode" placeholder="Zip Code" maxlength="5">
                       </div>
-                      <div class="checkbox">
-                        <label>
-                          <input type="checkbox"> keep me logged-in
-                        </label>
-                        <label>
-                          <input type="checkbox"> Sign Newletters
-                        </label>
+                      <div class="form-group">
+                        <button id="signIn" type="submit" class="btn btn-signin btn-block">Join</button>
                       </div>
                     </form>
-                  </div>
-                  <div class="bottom text-center">
-                    <input class="btn btn-primary" type="submit" name="CreateLogIn" value="Create Log In">
                   </div>
                 </div>
               </li>
