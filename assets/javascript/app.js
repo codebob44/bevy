@@ -1,5 +1,45 @@
 $(document).ready(function(){
 
+
+  // Initialize Firebase
+ var config = {
+   apiKey: "AIzaSyBY-a397h7So8zWf1pIoUeLDLDfi3c7_f4",
+   authDomain: "bevy-ec8db.firebaseapp.com",
+   databaseURL: "https://bevy-ec8db.firebaseio.com",
+   projectId: "bevy-ec8db",
+   storageBucket: "bevy-ec8db.appspot.com",
+   messagingSenderId: "1092872135056"
+ };
+ firebase.initializeApp(config);
+ 	 // Create a variable to reference the database.
+    var database = firebase.database();
+    // Initial Values
+    var name = "";
+    var email = "";
+    var zip = "";
+    
+    // Capture Button Click
+    $("#signIn").on("click", function(event) {
+      event.preventDefault();
+      console.log(event);
+      
+      // Grabbed values from text boxes
+      name = $("#InputName").val().trim();
+      console.log(name);
+      email = $("#InputEmail").val().trim();
+      console.log(email);
+      zip = $("#InputZipcode").val().trim();
+      console.log(zip);
+     
+      // Code for handling the push
+      database.ref().push({
+        name: name,
+        email: email,
+        zip: zip,
+      });
+
+    });
+    
 //GLOBAL VARIABLES
 
 	var scheduledEvents = [];
