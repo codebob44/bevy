@@ -16,6 +16,7 @@
 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDDSfAmgD5d0Z1t0HBBEL5ORhddyXOq_4M"></script>
     <script src="https://code.jquery.com/jquery.js"></script>
+    <script async src="https://platform.twitter.com/widgets.js"></script>
     <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>    
 		<script type="text/javascript" src="assets/javascript/app.js"></script>
@@ -43,10 +44,9 @@
 		    <!-- Collect the nav links, forms, and other content for toggling -->
 		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		      <ul class="nav navbar-nav">
-          <li>
+          <li class="drop">
             <div class="btn-group navbar-btn">
-            <button class="btn btn-primary">Search by Event Type</button>
-            <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle"><span class="caret"></span></button>
+            <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle">Search for All Events <span class="caret"></span></button>
               <ul id="search-dp" class="dropdown-menu" aria-labeledby="dropdownMenu1">
                 <li class="col-md-6">
                   <ul>
@@ -84,30 +84,18 @@
               </ul>
             </div>
           </li>
-          <form class="navbar-form navbar-left">
-          <div class="form-group">
-            <input type="text" class="form-control" placeholder="All Events">
-          </div>
-          </form>
-            <li>
+            <li class="drop">
             <div class="btn-group navbar-btn">
-            <button class="btn btn-primary">Search by When</button>
-            <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle"><span class="caret"></span></button>
+            <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle">This Week <span class="caret"></span></button>
               <ul id="search-dp" class="dropdown-menu" aria-labeledby="dropdownMenu1">
               <li class="eventWhen" data-name="today">Today</li>
               <li class="eventWhen" data-name="tomorrow">Tomorrow</li>
               <li class="eventWhen" data-name="this+week">This Week</li>
               <li class="eventWhen" data-name="this+weekend">This Weekend</li>
               <li class="eventWhen" data-name="this+month">This Month</li>
-<!--           <li><class="eventWhen" data-attribute="custom">Custom</li> -->
               </ul>
             </div>
             </li>
-            <form class="navbar-form navbar-left">
-            <div class="form-group">
-              <input type="text" class="form-control" placeholder="This Week">
-            </div>
-            </form>
             </ul>
           <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
@@ -151,54 +139,7 @@
   </div><!-- /.container-fluid -->
 </nav>
 
-
 		<div id="map"></div>
-
-<!-- 		<div class="dropdown">
-		  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-		    Search by Event Type
-		    <span class="caret"></span>
-		  </button>
-		  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-		    <li class="eventCat" data-name="Concerts">Concerts</li>
-		    <li class="eventCat" data-name="Conferences">Conferences</li>
-		    <li class="eventCat" data-name="Comedy">Comedy</li>
-		    <li class="eventCat" data-name="Education">Education</li>
-		    <li class="eventCat" data-name="Film">Film</li>
-		    <li class="eventCat" data-name="Food">Food</li>
-		    <li class="eventCat" data-name="Fundraisers">Fundraisers</li>
-		    <li class="eventCat" data-name="Galleries">Galleries</li>
-		    <li class="eventCat" data-name="Health">Health</li>
-		    <li class="eventCat" data-name="Holiday">Holiday</li>
-		    <li class="eventCat" data-name="Literary">Literary</li>
-		    <li class="eventCat" data-name="Museums">Museums</li>
-		    <li class="eventCat" data-name="Neighborhood">Neighborhood</li>
-		    <li class="eventCat" data-name="Networking">Networking</li>
-		    <li class="eventCat" data-name="On Campus">On Campus</li>
-		    <li class="eventCat" data-name="Organizations">Organizations</li>
-		    <li class="eventCat" data-name="Outdoors">Outdoors</li>
-		    <li class="eventCat" data-name="Pets">Pets</li>
-		    <li class="eventCat" data-name="Politics">Politics</li>
-		    <li class="eventCat" data-name="Sales">Sales</li>
-		    <li class="eventCat" data-name="Science">Science</li>
-		    <li class="eventCat" data-name="Spirituality">Spirituality</li>
-		    <li class="eventCat" data-name="Technology">Technology</li>
-		    <li class="eventCat" data-name="Other">Other</li>
-		  </ul>
-		</div> -->
-
-<!--     <div class="dropdown">
-      <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Search by When<span class="caret"></span>
-      </button>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-          <li class="eventWhen" data-name="today">Today</li>
-          <li class="eventWhen" data-name="tomorrow">Tomorrow</li>
-          <li class="eventWhen" data-name="this+week">This Week</li>
-          <li class="eventWhen" data-name="this+weekend">This Weekend</li>
-          <li class="eventWhen" data-name="this+month">This Month</li>
-          <li><class="eventWhen" data-attribute="custom">Custom</li> 
-        </ul>
-    </div> -->
 
 	 <footer>
         <div class="container">
