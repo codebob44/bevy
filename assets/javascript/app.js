@@ -3,15 +3,12 @@ $(document).ready(function(){
 //GLOBAL VARIABLES
 
 	var scheduledEvents = [];
-	var searchEventCat = "";
-	var searchRadius = 20;
-	// var searchZip = "";
+	var searchEventCat = "all";
+	var searchRadius = 30;
 	var searchTime = "this+week";
 	var pos = {};
 	var returnedZip = "";
-
 	var markerArray = [];
-
 
 //FUNCTIONS
 
@@ -20,10 +17,10 @@ $(document).ready(function(){
 		
 		function searchEventful() {
 
-			var searchURL = "https://api.eventful.com/json/events/search?q=" + searchEventCat + "&l=" + returnedZip + "&within=" + searchRadius + "&units=miles&t=" + searchTime + "&include=categories&app_key=2QPvTQjtvQ5DsFpL";
+			var searchURL = "https://api.eventful.com/json/events/search?q=" + searchEventCat + "&l=" + returnedZip + "&within=" + searchRadius + "&units=miles&t=" + searchTime + "&t=future&include=categories&app_key=2QPvTQjtvQ5DsFpL";
 
 			//function to place markers
-      		function setMapOnAll(map) {
+			function setMapOnAll(map) {
         		for (var i = 0; i < markerArray.length; i++) {
         			var thisMarker = markerArray[i]; 
           			thisMarker.marker.setMap(map);
@@ -31,9 +28,16 @@ $(document).ready(function(){
     					content: thisMarker.contentString	
   					});
   					thisMarker.marker.infowindow = infowindow;
+  					var open = false;
   					thisMarker.marker.addListener('click', function() {
-    					this.infowindow.open(map, this);
-    					// console.log(this);
+  						if (open === false) {
+  							this.infowindow.open(map, this);
+  							open = true
+  						}
+    					else {
+    						this.infowindow.close(map, this);
+    						open = false;
+    					}
   					});
         		}
       		}
@@ -63,12 +67,22 @@ $(document).ready(function(){
 							position: {
 								lat: parseFloat(thisEvent.latitude),
 			      				lng: parseFloat(thisEvent.longitude)
-							}
+							},
+							icon: "assets/images/event_marker_small.png"
 						}),
-						contentString: "<p>" + thisEvent.title + "</p><p>" + thisEvent.categories.category[0].name + ", " + thisEvent.start_time + "</p><p>" + thisEvent.venue_name + "</p><p>" + thisEvent.venue_address + "</p><p>" + thisEvent.city_name + " " + thisEvent.region_name + " " + thisEvent.postal_code + "</p><p><a href='" + thisEvent.url + "' target='_blank'>More Info</a></p>"
+						contentString: "<p>" + thisEvent.title + " - " +  
+							moment(thisEvent.start_time).format('ddd MMM D, hh:mm a') + "</p><p>" +
+							thisEvent.venue_name + "</p><p>" + 
+							thisEvent.venue_address + "</p><p>" + 
+							thisEvent.city_name + " " + 
+							thisEvent.region_name + " " + 
+							thisEvent.postal_code + "</p><p> Main Category: " + 
+							thisEvent.categories.category[0].name + "</p><p><a href='" + 
+							thisEvent.url + "' target='_blank'>More Info</a></p><a class='twitter-share-button' target='_blank' href='https://twitter.com/intent/tweet?text=Who&#39;s%20in?&url=" + 
+							thisEvent.url + "' data-size='large'>Tweet</a>"
 					});
-					// console.log(moment("YYYY-MM-DD HH:mm:ss", thisEvent.start_time).format("HH:mm"));
 				}
+
 				//set markers for this search
 				setMapOnAll(map);
 		    });
@@ -108,7 +122,7 @@ $(document).ready(function(){
 				map:map
 				});
 
-				marker.setIcon("assets/images/blue_pin.png");
+				marker.setIcon("assets/images/current_loc_small.png");
 
 			    map.setCenter(pos);
 			  	getZip();
@@ -159,34 +173,25 @@ $(document).ready(function(){
 
 //WHEN EVENT TIME IS SELECTED FROM DROPDOWN, SET VARIABLE
 	$(".eventWhen").on("click", function() {
+		//display selection in dropdown
+		var selText = $(this).text();
+  		$(this).parents('.drop').find('.btn-primary').html(selText+' <span class="caret"></span>');
 		//get data-name and assign to variable
-			searchTime = $(this).attr("data-name");
-			console.log(searchTime);
-			if (searchEventCat !== "") {
-				searchEventful();
-			}
-	});
-
-//WHEN EVENT CAT IS SELECTED FROM DROPDOWN, RUN FUNCTIONS AND DISPLAY RESULTS ON MAP
-	$(".eventCat").on("click", function() {
-		//get data-name and assign to variable to search api
-			searchEventCat = $(this).attr("data-name");
-			console.log(searchEventCat);
-		//run api data grab function
+		searchTime = $(this).attr("data-name");
+		if (searchEventCat !== "") {
 			searchEventful();
+		}
 	});
 
-//WHEN DROPDOWN IS CLICKED
-	//https://stackoverflow.com/questions/17061812/display-selected-item-in-bootstrap-button-dropdown-title-place-holder-text
-	$(".eventCat").click(function(){
-  		var selText = $(this).text();
-  		$(this).parents('.dropdown').find('.dropdown-toggle').html(selText+'<span class="caret"></span>');
+//WHEN EVENT CAT IS SELECTED FROM DROPDOWN, RUN SEARCH FUNCTION AND DISPLAY RESULTS ON MAP
+	$(".eventCat").on("click", function() {
+		//display selection in dropdown
+		var selText = $(this).text();
+  		$(this).parents('.drop').find('.btn-primary').html('Search for ' +selText+' <span class="caret"></span>');
+		//get data-name and assign to variable to search api
+		searchEventCat = $(this).attr("data-name");
+		//run api data grab function
+		searchEventful();
 	});
-
-	$(".eventWhen").click(function(){
-  		var selText = $(this).text();
-  		$(this).parents('.dropdown').find('.dropdown-toggle').html(selText+'<span class="caret"></span>');
-	});
-
 });
 
